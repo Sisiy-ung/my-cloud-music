@@ -1,14 +1,15 @@
-import React from 'react'
 import { GlobalStyle } from './style';
 import { IconStyle } from './assets/iconfont/iconfont';
+import MyRouter from "./routes";
+
 
 function App() {
   return (
-    <div className="App">
-      <GlobalStyle></GlobalStyle>
-      <IconStyle></IconStyle>
-      <i className="iconfont">&#xe62b;</i>
-    </div>
+    <>
+        <GlobalStyle></GlobalStyle>
+        <IconStyle></IconStyle>
+        <MyRouter></MyRouter>
+    </>
   );
 }
 
