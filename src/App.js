@@ -1,6 +1,7 @@
 import { GlobalStyle } from './style';
 import { IconStyle } from './assets/iconfont/iconfont';
 import MyRouter from "./routes";
+import { RouterProvider } from 'react-router-dom';
 
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
     <>
         <GlobalStyle></GlobalStyle>
         <IconStyle></IconStyle>
-        <MyRouter></MyRouter>
+        <RouterProvider router={MyRouter} />
     </>
   );
 }
