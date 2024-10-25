@@ -28,7 +28,7 @@ export const Tab = styled.div`
     padding: 2px 0;
     font-size: 14px;
     color: #e4e4e4;
-    &.selected{
+    & .selected{
       span{
         padding: 3px 0;
         font-weight: 700;
