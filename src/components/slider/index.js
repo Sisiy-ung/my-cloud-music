@@ -1,7 +1,29 @@
 import { SliderContainer } from './style';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { Swiper } from 'swiper';
+
+import 'swiper/swiper.scss';
 function Slider(props) {
     const { bannerList } = props;
+    const [sliderSwiper, setSliderSwiper] = useState(null)
+
+    useEffect( () => {
+        if(bannerList.length && !sliderSwiper) {
+            let newSliderSwiper = new Swiper(".slider-container", {
+                loop: true,
+                autoplay: {
+                  delay: 3000,
+                  disableOnInteraction: false,
+                },
+                pagination: {el:'.swiper-pagination'},
+              });
+            setSliderSwiper(newSliderSwiper)
+        }
+
+    }, [bannerList.length, sliderSwiper])
+
+
     return (
         <SliderContainer>
             <div className='slider-container'>
