@@ -1,9 +1,9 @@
 import { SliderContainer } from './style';
 import React, { useEffect, useState } from 'react';
 
-import { Swiper } from 'swiper';
+import Swiper from 'swiper';
 
-import 'swiper/swiper.scss';
+import "swiper/dist/css/swiper.css";
 function Slider(props) {
     const { bannerList } = props;
     const [sliderSwiper, setSliderSwiper] = useState(null)
