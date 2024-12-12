@@ -26,6 +26,7 @@ function Slider(props) {
 
     return (
         <SliderContainer>
+            <div className="before"></div>
             <div className='slider-container'>
                 {/* wrapper */}
                 <div className='swiper-wrapper'>
