@@ -1,3 +1,8 @@
-export const CHANGE_BANNER = 'recommend/CHANGE_BANNER'
+// 将变量导出
 
-export const CHANGE_RECOMMEND_LIST = 'recommend/RECOMMEND_LIST'
+
+import reducer from './reducer'
+import * as actionCreators from './actionCreators'
+import * as constants from './constants'
+
+export {reducer, actionCreators, constants}
