@@ -6,15 +6,24 @@ import { Content } from './style';
 import Scroll from '../../baseUI/scroll/index';
 import { connect } from 'react-redux';
 import * as actionTypes from './store/actionCreators';
+import Loading from '../../baseUI/loading/index';
+
+
 function Recommend(props) {
 
-  const { bannerList, recommendList } = props;
+  const { bannerList, recommendList, enterLoading } = props;
 
   const { getBannerDataDispatch, getRecommendListDataDispatch } = props;
 
   useEffect (() => {
-    getBannerDataDispatch ();
-    getRecommendListDataDispatch ();
+    // 如果页面有数据，则不发请求
+    //immutable 数据结构中长度属性 size
+    if (!bannerList.size){
+      getBannerDataDispatch ();
+    }
+    if (!recommendList.size){
+      getRecommendListDataDispatch ();
+    }
     //eslint-disable-next-line
   }, []);
   // const bannerList = [1,2,3,4].map(item => {
@@ -40,6 +49,7 @@ function Recommend(props) {
           <RecommendList recommendList={recommendListJS}></RecommendList> 
         </div>
       </Scroll>
+      {/* { enterLoading ? <Loading></Loading> : null } */}
     </Content>
   )
 }
@@ -48,6 +58,7 @@ function Recommend(props) {
 const mapStateToProps = (state) => ({
   bannerList: state.getIn(['recommend', 'bannerList']),
   recommendList: state.getIn (['recommend', 'recommendList']),
+  enterLoading: state.getIn (['recommend', 'enterLoading'])
 }) 
 
 // 映射dispatch到props
