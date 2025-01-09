@@ -34,9 +34,25 @@ const ListItem = styled.span`
 function Horizen(props) {
     const {list, oldVal, title} = props
     const {handleClick} = props
+    const CategoryRef = useRef(null)
+    // better-scroll 的 (横向) 滚动原理，首先外面容器要宽度固定，其次内容宽度要大于容器宽度。
+
+    // 内容宽度
+    useEffect(() => {
+        let categoryDOM = CategoryRef.current
+        let tagElems = categoryDOM.querySelectorAll("span")
+        let totalWidth = 0
+        Array.from(tagElems).forEach(ele => {
+            totalWidth += ele.offsetWidth
+        })
+        categoryDOM.style.width = `${totalWidth}px`
+        console.log(categoryDOM.style.width, 'categoryDOM.style.width');
+        
+    }, [])
+
     return (
         <Scroll direction={"horizontal"}>
-            <div>
+            <div ref={CategoryRef}>
                 <List>
                     <span>{title}</span>
                     {
