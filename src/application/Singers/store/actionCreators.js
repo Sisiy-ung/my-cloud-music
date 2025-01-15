@@ -43,11 +43,20 @@ export const changePullDownLoading = (data) => ({
     data
 });
 
+export const changeCategory = (data) => ({
+    type: CHANGE_CATOGORY,
+    data
+});
+
+export const changeAlpha = (data) => ({
+    type: CHANGE_ALPHA,
+    data
+});
 
 //   第一次加载热门歌手
 export const getHotSingerList = () => {
     return (dispatch) => {
-        getSingerListRequest(0).then(res => {
+        getHotSingerListRequest(0).then(res => {
             const data = res.artists
             dispatch(changeSingerList(data))
             dispatch(changeEnterLoading(false))
@@ -77,16 +86,16 @@ export const refreshMoreHotSingerList = () => {
 //   第一次加载对应类别的歌手
 export const getSingerList = (category, alpha) => {
     return (dispatch, getState) => {
-        getSingerListRequest(category, alpha, 0).then(res => {
-            const data = res.artists
-            dispatch(changeSingerList(data))
-            dispatch(changeEnterLoading(false))
-            dispatch(changePullDownLoading(false))
-        }).catch(() => {
-            console.log('歌手数据获取失败');
-        });
+      getSingerListRequest(category, alpha, 0).then(res => {
+        const data = res.artists;
+        dispatch(changeSingerList(data));
+        dispatch(changeEnterLoading(false));
+        dispatch(changePullDownLoading(false));
+      }).catch(() => {
+        console.log('歌手数据获取失败');
+      });
     }
-} 
+  };
 
 // 加载更多歌手
 export const refreshMoreSingerList = (category, alpha) => {

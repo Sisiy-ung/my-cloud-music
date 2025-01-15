@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect, memo } from 'react';
-import styled from'styled-components';
+import styled from 'styled-components';
 import Scroll from '../scroll/index'
 import { PropTypes } from 'prop-types';
 import style from '../../assets/global-style';
@@ -16,24 +16,24 @@ const List = styled.div`
     padding: 5px 0;
     margin-right: 5px;
     color: grey;
-    font-size: ${style ["font-size-m"]};
+    font-size: ${style["font-size-m"]};
     vertical-align: middle;
   }
 `
 const ListItem = styled.span`
   flex: 0 0 auto;
-  font-size: ${style ["font-size-m"]};
+  font-size: ${style["font-size-m"]};
   padding: 5px 8px;
   border-radius: 10px;
   &.selected {
-    color: ${style ["theme-color"]};
-    border: 1px solid ${style ["theme-color"]};
+    color: ${style["theme-color"]};
+    border: 1px solid ${style["theme-color"]};
     opacity: 0.8;
   }
 `
 function Horizen(props) {
-    const {list, oldVal, title} = props
-    const {handleClick} = props
+    const { list, oldVal, title } = props
+    const { handleClick } = props
     const CategoryRef = useRef(null)
     // better-scroll 的 (横向) 滚动原理，首先外面容器要宽度固定，其次内容宽度要大于容器宽度。
 
@@ -47,23 +47,25 @@ function Horizen(props) {
         })
         categoryDOM.style.width = `${totalWidth}px`
         console.log(categoryDOM.style.width, 'categoryDOM.style.width');
-        
-    }, [])
 
+    }, [])
+    const clickHandle = (item) => {
+        handleClick(item.key);
+    }
     return (
-        <Scroll direction={"horizontal"}>
+        <Scroll direction={"horizental"}>
             <div ref={CategoryRef}>
                 <List>
                     <span>{title}</span>
                     {
                         list.map((item) => {
-                            return(
-                                <ListItem 
-                                key={item.key}
-                                className={`${oldVal === item.key ? 'selected': ''}`}
-                                onClick={() => handleClick(item.key)}
+                            return (
+                                <ListItem
+                                    key={item.key}
+                                    className={`${oldVal === item.key ? 'selected' : ''}`}
+                                    onClick={() => clickHandle(item)}
                                 >
-                                {item.name}
+                                    {item.name}
                                 </ListItem>
                             )
                         })
