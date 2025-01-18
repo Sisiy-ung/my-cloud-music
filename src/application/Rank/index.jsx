@@ -6,14 +6,16 @@ import Loading from '../../baseUI/loading';
 import { EnterLoading } from '../Singers/style';
 import Scroll from '../../baseUI/scroll/index';
 import {
-  Container
+  Container,
+  List,
+  ListItem,
+  SongList
 } from './style';
-
-
+import { useNavigate, Outlet  } from 'react-router-dom';
 function Rank(props) {
   const { rankList: list, loading } = props;
   const { getRankListDataDispatch } = props;
-
+  const navigate = useNavigate();
   let rankList = list ? list.toJS() : []
 
   useEffect(() => {
@@ -30,50 +32,54 @@ function Rank(props) {
   let displayStyle = loading ? { "display": "none" } : { "display": "" };
   // 这是渲染榜单列表函数，传入 global 变量来区分不同的布局方式
 
+  const enterDetail = (id) => {
+    navigate(`/rank/${id}`)
+  }
+
   const renderSongList = (list) => {
     return list.length ? (
-      <songList>
+      <SongList>
         {
           list.map((item, index) => {
             return <li key={index}>{index + 1}. {item.first} - {item.second}</li>
           })
         }
-      </songList>
+      </SongList>
     ) : null
   }
-  // const renderRankList = (list, global) => {
-  //   return (
-  //     <List globalRank={global}>
-  //       {
-  //         list.map((item) => {
-  //           return (
-  //             <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail(item.name)}>
-  //               <div>
-  //                 <img src={img.coverImgUrl} />
-  //                 <div></div>
-  //                 <span>{item.updateFrequency}</span>
-  //               </div>
-  //               {renderSongList(item.tracks)}
-  //             </ListItem>
-  //           )
-  //         })
-  //       }
+  const renderRankList = (list, global) => {
+    return (
+      <List globalRank={global}>
+      {
+      list.map ((item) => {
+        return (
+          <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail (item.id)}>
+            <div className="img_wrapper">
+              <img src={item.coverImgUrl} alt=""/>
+              <div className="decorate"></div>
+              <span className="update_frequecy">{item.updateFrequency}</span>
+            </div>
+            { renderSongList (item.tracks)  }
+          </ListItem>
+        )
+      })
+    } 
+    </List>
+    )
 
-  //     </List>
-  //   )
-
-  // }
+  }
   return (
-    <Container>
+    <Container >
       <Scroll>
         <div>
-          <h1 className="offical" style={displayStyle}> 官方榜 </h1>
-          {/* {renderRankList(officialList)} */}
-          <h1 className="global" style={displayStyle}> 全球榜 </h1>
-          {/* {renderRankList(globalList, true)} */}
-          {loading ? <EnterLoading><Loading></Loading></EnterLoading> : null}
+          <h1 className="offical" style={displayStyle}>官方榜</h1>
+            { renderRankList(officialList) }
+          <h1 className="global" style={displayStyle}>全球榜</h1>
+            { renderRankList(globalList, true) }
+          { loading ? <EnterLoading><Loading></Loading></EnterLoading> : null }
         </div>
-      </Scroll>
+      </Scroll> 
+      <Outlet />
     </Container>
   )
 }

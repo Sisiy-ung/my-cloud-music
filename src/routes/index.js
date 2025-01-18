@@ -3,17 +3,18 @@ import Recommend from '../application/Recommend';
 import Singers from '../application/Singers';
 import Rank from '../application/Rank';
 import { createBrowserRouter } from 'react-router-dom';
-
+import Album from '../application/Album';
 
 const MyRouter = createBrowserRouter([
     {
-        path: '/', 
+        path: '/',
         element: <Home />,
         children: [
             {
                 index: true,
                 path: '/recommend',
-                element: <Recommend />
+                element: <Recommend />,
+
             },
             {
                 path: '/singers',
@@ -21,7 +22,13 @@ const MyRouter = createBrowserRouter([
             },
             {
                 path: '/rank',
-                element: <Rank />
+                element: <Rank />,
+                children: [
+                    {
+                        path: ':id',
+                        element: <Album />,
+                    }
+                ]
             },
 
         ]
