@@ -33,7 +33,6 @@ const MyRouter = createBrowserRouter([
 
         ]
     }
-]
+])
 
-)
 export default MyRouter
