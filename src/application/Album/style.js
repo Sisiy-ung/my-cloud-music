@@ -135,7 +135,6 @@ export const Menu = styled.div`
 export const SongList = styled.div`
   border-radius: 10px;
   opacity: 0.98;
-  background: #fff;
   .first_line{
     box-sizing: border-box;
     padding: 10px 0;

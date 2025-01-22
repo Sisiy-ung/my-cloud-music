@@ -25,10 +25,9 @@ function Album(props) {
     getAlbumDataDispatch(id)
   }, [getAlbumDataDispatch, id])
 
-  let currentAlbum = currentAlbumImmutable.toJS ();
+  let currentAlbum = currentAlbumImmutable.toJS();
   const renderTopDesc = () => {
     return (
-      !isEmptyObject (currentAlbum) ?
       <TopDesc background={currentAlbum.coverImgUrl}>
         <div className="background">
           <div className="filter"></div>
@@ -50,13 +49,13 @@ function Album(props) {
             <div className="name">{currentAlbum.creator.nickname}</div>
           </div>
         </div>
-      </TopDesc> : null
+      </TopDesc>
     )
   };
 
   const renderMenu = () => {
     return (
-      !isEmptyObject (currentAlbum) ? 
+
       <div>
         <Menu>
           <div>
@@ -76,45 +75,42 @@ function Album(props) {
             更多
           </div>
         </Menu>
-
-        <SongList>
-          <div className="first_line">
-            <div className="play_all">
-              <i className="iconfont">&#xe6e3;</i>
-              <span > 播放全部 <span className="sum">(共 {currentAlbum.tracks.length} 首)</span></span>
-            </div>
-            <div className="add_list">
-              <i className="iconfont">&#xe62d;</i>
-              <span > 收藏 </span>
-            </div>
-          </div>
-          <SongItem>
-            {
-              currentAlbum.tracks.map((item, index) => {
-                return (
-                  <li key={index}>
-                    <span className="index">{index + 1}</span>
-                    <div className="info">
-                      <span>{item.name}</span>
-                      <span>
-                        {getName(item.ar)} - {item.al.name}
-                      </span>
-                    </div>
-                  </li>
-                )
-              })
-            }
-          </SongItem>
-        </SongList> 
-      </div> : null
-
-
-
+      </div>
     )
   };
 
   const renderSongList = () => {
-
+    return (
+      <SongList>
+        <div className="first_line">
+          <div className="play_all">
+            <i className="iconfont">&#xe6e3;</i>
+            <span > 播放全部 <span className="sum">(共 {currentAlbum.tracks.length} 首)</span></span>
+          </div>
+          <div className="add_list">
+            <i className="iconfont">&#xe62d;</i>
+            <span > 收藏 </span>
+          </div>
+        </div>
+        <SongItem>
+          {
+            currentAlbum.tracks.map((item, index) => {
+              return (
+                <li key={index}>
+                  <span className="index">{index + 1}</span>
+                  <div className="info">
+                    <span>{item.name}</span>
+                    <span>
+                      {getName(item.ar)} - {item.al.name}
+                    </span>
+                  </div>
+                </li>
+              )
+            })
+          }
+        </SongItem>
+      </SongList>
+    )
   }
   return (
     <CSSTransition
@@ -126,9 +122,15 @@ function Album(props) {
       onExit={() => navigate(-1)}>
       <Container>
         <Header title={"返回"} handleClick={handleBack}></Header>
-        {renderTopDesc()}
-        {renderMenu()}
-        {renderSongList()}
+        {!isEmptyObject(currentAlbum) ?
+          (<Scroll
+            bounceTop={false}
+          >
+            {renderTopDesc()}
+            {renderMenu()}
+            {renderSongList()}
+          </Scroll>) : null
+        }
       </Container>
     </CSSTransition>
   )
