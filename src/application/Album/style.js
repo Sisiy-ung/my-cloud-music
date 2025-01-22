@@ -6,7 +6,7 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: ${props => props.play > 0 ? "60px": 0};
+  bottom: ${props => props.play > 0 ? "60px" : 0};
   width: 100%;
   overflow: hidden;
   background: #f2f3f4;
@@ -184,6 +184,8 @@ export const SongList = styled.div`
 }
 `
 export const SongItem = styled.ul`
+height: 600px;
+overflow-y: auto;
   >li{
     display: flex;
     height: 60px;

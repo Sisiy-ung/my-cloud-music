@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Container, TopDesc, Menu, SongList, SongItem } from './style'
 import { CSSTransition } from 'react-transition-group'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -18,9 +18,9 @@ function Album(props) {
   const { getAlbumDataDispatch } = props
   const id = useParams().id
 
-  const handleBack = () => {
-    setShowStatus(false);
-  };
+  const handleBack = useCallback (() => {
+    setShowStatus (false);
+  }, []);
   useEffect(() => {
     getAlbumDataDispatch(id)
   }, [getAlbumDataDispatch, id])
@@ -125,6 +125,7 @@ function Album(props) {
         {!isEmptyObject(currentAlbum) ?
           (<Scroll
             bounceTop={false}
+            style={{ height: '600px' }}
           >
             {renderTopDesc()}
             {renderMenu()}
