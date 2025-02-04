@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useContext } from 'react'
+import React, { useRef, useEffect,  useContext } from 'react'
 import Horizen from '../../baseUI/horizen-item';
 import { categoryTypes, alphaTypes } from '../../api/config';
 import { 
@@ -6,7 +6,6 @@ import {
   ListContainer,
   List,
   ListItem,
-  EnterLoading
 } from "./style";
 import Scroll from "../../baseUI/scroll/index";
 import { 
@@ -21,9 +20,9 @@ import {
   changeCategory
 } from './store/actionCreators';
 import {connect} from 'react-redux';
-import  LazyLoad, {forceCheck} from 'react-lazyload';
+import  LazyLoad from 'react-lazyload';
 import {CHANGE_ALPHA, CHANGE_CATEGORY, CategoryDataContext} from './data'
-
+import { useNavigate, Outlet  } from 'react-router-dom';
 function Singers(props) {
   const scrollRef = useRef(null);
   // let [category, setCategory] = useState('')
@@ -31,13 +30,13 @@ function Singers(props) {
   const {data, dispatch} = useContext (CategoryDataContext);
   const {category, alpha} = data.toJS ();
   const { singerList, pageCount, pullUpLoading, pullDownLoading,} = props;
-  const { getHotSinger, updateCategory, updateAlpha, updateDispatch, pullUpRefreshDispatch, pullDownRefreshDispatch } = props;
-
+  const { getHotSinger, updateDispatch, pullUpRefreshDispatch, pullDownRefreshDispatch } = props;
+  const navigate = useNavigate();
   useEffect(() => {
     if(!singerList.length && !category && !alpha) {
       getHotSinger();
     }
-  }, []);
+  }, [singerList.length, category, alpha, getHotSinger]);
   // const singerList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(item => {
   //   return {
   //     picUrl: "https://p2.music.126.net/uTwOm8AEFFX_BYHvfvFcmQ==/109951164232057952.jpg",
@@ -66,6 +65,10 @@ function Singers(props) {
     pullDownRefreshDispatch (category, alpha);
   };
 
+  const enterDetail = (id) => {
+    navigate(`/singers/${id}`)
+  }
+
   // // 分类
   // const handleUpdateCategory = (newVal) => {
   //   console.log(newVal, category, 'handleUpdateCategory');
@@ -88,7 +91,7 @@ function Singers(props) {
         {
           singerList.toJS().map((item, index) => {
             return (
-              <ListItem key={item.id + "" + index}>
+              <ListItem key={item.id + "" + index} onClick={() => enterDetail(item.id)}>
                 <div className="img_wrapper">
                   <LazyLoad placeholder={<img src={`${item.picUrl}?param=300x300`} width="100%" height="100%" alt="music" />}>
                     <img src={`${item.picUrl}?param=300x300`} width="100%" height="100%" alt="music"/>
@@ -125,11 +128,8 @@ function Singers(props) {
           {renderSingerList()}
         </Scroll>
       </ListContainer>
-      
+      <Outlet /> 
     </div>
-
-
-
   )
 }
 // 映射redux的state到组件的state上
