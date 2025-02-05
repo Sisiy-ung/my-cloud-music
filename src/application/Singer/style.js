@@ -6,11 +6,11 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: ${props => props.play > 0 ? "60px": 0};
+  bottom: ${props => props.play > 0 ? "60px" : 0};
   width: 100%;
   z-index: 100;
   overflow: hidden;
-  background: red;
+   background: #f2f3f4;
   transform-origin: right bottom;
   &.fly-enter, &.fly-appear {
     transform: rotateZ (30deg) translate3d (100%, 0, 0);
