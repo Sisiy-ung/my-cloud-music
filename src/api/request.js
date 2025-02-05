@@ -21,6 +21,10 @@ export const getAlbumDetailRequest = id => {
 };
 
 
+export const getSingerInfoRequest = id  => {
+    return axiosInstance.get(`/artists?id=${id}`)
+}
+
 // -1:全部
 // 1:男歌手
 // 2:女歌手
