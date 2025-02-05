@@ -18,9 +18,10 @@ function Album(props) {
   const { getAlbumDataDispatch } = props
   const id = useParams().id
 
-  const handleBack = useCallback (() => {
-    setShowStatus (false);
+  const handleBack = useCallback(() => {
+    setShowStatus(false);
   }, []);
+
   useEffect(() => {
     getAlbumDataDispatch(id)
   }, [getAlbumDataDispatch, id])
@@ -119,6 +120,7 @@ function Album(props) {
       classNames="fly"
       appear={true}
       unmountOnExit
+      key={window.location.pathname}
       onExit={() => navigate(-1)}>
       <Container>
         <Header title={"返回"} handleClick={handleBack}></Header>
