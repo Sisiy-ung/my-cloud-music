@@ -12,14 +12,14 @@ const HeaderContainer = styled.div`
   z-index: 100;
   display: flex;
   line-height: 40px;
-  color: ${style ["font-color-light"]};
+  color: ${style["font-color-light"]};
   .back {
     margin-right: 5px;
     font-size: 20px;
     width: 20px;
   }
   >h1 {
-    font-size: ${style ["font-size-l"]};
+    font-size: ${style["font-size-l"]};
     font-weight: 700;
   }
 `
